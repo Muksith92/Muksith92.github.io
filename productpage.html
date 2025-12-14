@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Animated Product Gallery — Tilt & Parallax</title>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --card-bg: #ffffff;
+      --accent: #111827;
+      --muted: #6b7280;
+      --shadow: 0 10px 30px rgba(16,24,40,0.08);
+      --shadow-strong: 0 20px 40px rgba(16,24,40,0.12);
+      --radius: 14px;
+    }
+
+    *{box-sizing:border-box}
+    html, body{height:100%; margin:0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; line-height:1.45; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; background:var(--bg); color:var(--accent);}
+
+    header {padding:48px 20px 20px; text-align:center;}
+    header h1{margin:0; font-size:28px; letter-spacing:-0.2px;}
+    header p{margin:8px auto 0; color:var(--muted); max-width:760px;}
+
+    .grid { width:min(1200px,94%); margin:36px auto 80px; display:grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap:24px; align-items:start; }
+
+    .card { background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.98)); border-radius:var(--radius); padding:14px; overflow:visible; position:relative; transform-origin:center; will-change:transform; box-shadow:var(--shadow); transition:box-shadow .25s ease, transform .25s ease; cursor:default;}
+    .card:hover{box-shadow:var(--shadow-strong); transform: translateY(-8px);}
+    .media{background:linear-gradient(180deg,#f8fafc 0%,#fff 100%); border-radius:10px; overflow:hidden; height:160px; position:relative;}
+    .media img{width:110%; height:100%; object-fit:cover; object-position:center; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); transform-origin:center; pointer-events:none; transition: transform .35s ease; will-change:transform;}
+
+    .meta{padding:12px 6px 6px; display:flex; flex-direction:column; gap:6px;}
+    .title{font-weight:600; font-size:16px;}
+    .desc{color:var(--muted); font-size:13px;}
+    .bottom{margin-top:8px; display:flex; justify-content:space-between; align-items:center;}
+    .price{font-weight:700;}
+    .cta{padding:8px 12px; background:var(--accent); color:white; font-size:13px; border-radius:8px; text-decoration:none;}
+
+    .badge{position:absolute; left:12px; top:12px; background:rgba(17,24,39,0.9); color:#fff; font-size:12px; padding:6px 8px; border-radius:8px; backdrop-filter: blur(4px);}
+    @media (max-width:520px){ header h1{font-size:22px} .media{height:140px} }
+
+    .card:focus-within{outline:3px solid rgba(99,102,241,0.12); outline-offset:6px;}
+    a.cta:focus{box-shadow:0 6px 18px rgba(16,24,40,0.12);}
+    footer {
+    width: 100%;
+    padding: 20px 0;
+    text-align: center;
+    color: white;
+    background-color: black;
+    position: relative; /* keeps it in flow */
+    margin-top: 40px;   /* space from content above */
+    font-size: 14px;
+  }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Animated Product Gallery</h1>
+    <p>Scroll to reveal — hover, tilt, or move your device for interactive effect.</p>
+  </header>
+
+  <main class="grid" id="grid">
+    <!-- Cards (same as previous code, 5 cards) -->
+    <article class="card" tabindex="0" data-id="1">
+      <div class="badge">New</div>
+      <div class="media"><img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=1200&q=80" alt="Headphones"></div>
+      <div class="meta">
+        <div class="title">Premium Headphones</div>
+        <div class="desc">Studio-grade sound with active noise cancellation.</div>
+        <div class="bottom"><div class="price">$199</div><a class="cta" href="#">Details</a></div>
+      </div>
+    </article>
+
+    <article class="card" tabindex="0" data-id="2">
+      <div class="media"><img src="https://images.samsung.com/is/image/samsung/p6pim/za/feature/others/za-feature-galaxy-watch7-l310-545313465?$FB_TYPE_A_MO_JPG$" alt="Smart Watch"></div>
+      <div class="meta">
+        <div class="title">Smart Watch</div>
+        <div class="desc">Fitness tracking, notifications and elegant design.</div>
+        <div class="bottom"><div class="price">$149</div><a class="cta" href="#">Details</a></div>
+      </div>
+    </article>
+
+    <article class="card" tabindex="0" data-id="3">
+      <div class="media"><img src="https://images2.ray-ban.com//cdn-record-files-pi/ad0764ab-4725-4da4-9a38-aa6201226b59/424ac35e-7b2d-4e0f-97a2-acfd00530e31/0RB2140F__901_R6__STD__shad__qt.png?impolicy=RB_Product_clone&width=700&bgc=%23f2f2f2" alt="Sunglasses"></div>
+      <div class="meta">
+        <div class="title">Modern Sunglasses</div>
+        <div class="desc">Polarized lenses with lightweight frames.</div>
+        <div class="bottom"><div class="price">$79</div><a class="cta" href="#">Details</a></div>
+      </div>
+    </article>
+
+    <article class="card" tabindex="0" data-id="4">
+      <div class="media"><img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=1200&q=80" alt="Camera"></div>
+      <div class="meta">
+        <div class="title">Compact Camera</div>
+        <div class="desc">Portable camera with exceptional low-light performance.</div>
+        <div class="bottom"><div class="price">$399</div><a class="cta" href="#">Details</a></div>
+      </div>
+    </article>
+
+    <article class="card" tabindex="0" data-id="5">
+      <div class="media"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1200&q=80" alt="Sneakers"></div>
+      <div class="meta">
+        <div class="title">Running Sneakers</div>
+        <div class="desc">Cushioned midsole for long distance comfort.</div>
+        <div class="bottom"><div class="price">$129</div><a class="cta" href="#">Details</a></div>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+  © 2025 Muksith — All rights reserved
+</footer>
+  
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Reveal animation
+    gsap.from(".card", {
+      y:30,
+      opacity:0,
+      stagger:0.08,
+      duration:0.75,
+      ease:"power3.out",
+      scrollTrigger:{trigger:"#grid", start:"top 85%", toggleActions:"play none none none"}
+    });
+
+    function mapRange(value, inMin, inMax, outMin, outMax){
+      return outMin + (outMax - outMin) * ((value - inMin) / (inMax - inMin));
+    }
+
+    const cards = document.querySelectorAll(".card");
+    const isTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+
+    cards.forEach(card=>{
+      const media = card.querySelector(".media img");
+
+      if(!isTouch){
+        // Desktop hover tilt
+        card.addEventListener("pointermove", e=>{
+          const rect = card.getBoundingClientRect();
+          const dx = e.clientX - (rect.left + rect.width/2);
+          const dy = e.clientY - (rect.top + rect.height/2);
+          const rx = mapRange(dy, -rect.height/2, rect.height/2, 8, -8);
+          const ry = mapRange(dx, -rect.width/2, rect.width/2, -8, 8);
+          gsap.to(card, {rotationX:rx, rotationY:ry, transformPerspective:600, transformOrigin:"center", duration:0.4, ease:"power3.out"});
+          gsap.to(media, {x:mapRange(dx,-rect.width/2,rect.width/2,12,-12), y:mapRange(dy,-rect.height/2,rect.height/2,10,-10), scale:1.06, duration:0.6, ease:"power3.out"});
+        });
+        card.addEventListener("pointerleave", ()=>{ gsap.to(card,{rotationX:0, rotationY:0, duration:0.6, ease:"power3.out"}); gsap.to(media,{x:0, y:0, scale:1, duration:0.6, ease:"power3.out"}); });
+      } else {
+        gsap.set(media,{clearProps:"x,y,scale"});
+        gsap.set(card,{clearProps:"rotationX rotationY"});
+      }
+
+      card.addEventListener("focusin", ()=> gsap.to(card,{y:-6, boxShadow:"0 22px 40px rgba(16,24,40,0.12)", duration:0.25}));
+      card.addEventListener("focusout", ()=> gsap.to(card,{y:0, boxShadow:"var(--shadow)", duration:0.25}));
+    });
+
+    // Floating images
+    gsap.to(".media img",{y:-6,duration:6,repeat:-1,yoyo:true,ease:"sine.inOut", opacity:0.99, stagger:{each:0.15}});
+
+    // Device tilt support
+    if(isTouch && window.DeviceOrientationEvent){
+      window.addEventListener("deviceorientation", e=>{
+        const gamma = e.gamma || 0; // left-right tilt [-90,90]
+        const beta = e.beta || 0;   // front-back tilt [-180,180]
+        cards.forEach(card=>{
+          const media = card.querySelector(".media img");
+          const rx = mapRange(beta, -30,30, 8,-8);
+          const ry = mapRange(gamma, -30,30, -8,8);
+          gsap.to(card,{rotationX:rx, rotationY:ry, transformPerspective:600, transformOrigin:"center", duration:0.4, ease:"power3.out"});
+          gsap.to(media,{x:mapRange(ry,-8,8,12,-12), y:mapRange(rx,-8,8,10,-10), scale:1.06, duration:0.6, ease:"power3.out"});
+        });
+      });
+    }
+  </script>
+</body>
+</html>
