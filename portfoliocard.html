@@ -28,6 +28,7 @@ body {
     border-radius: 18px;
 }
 
+/* Desktop hover OR flipped class */
 .card:hover .card-inner,
 .card.flipped .card-inner {
     transform: rotateY(180deg);
@@ -134,10 +135,14 @@ body {
 <script>
 const card = document.getElementById('flipCard');
 
-// Toggle flip on mobile
-card.addEventListener('click', () => {
-  card.classList.toggle('flipped');
-});
+// Detect touch device
+const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+if(isTouch){
+  card.addEventListener('click', () => {
+    card.classList.toggle('flipped');
+  });
+}
 </script>
 
 </body>
