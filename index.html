@@ -75,6 +75,34 @@
     color: var(--muted);
   }
 
+  header {
+    position: relative;
+  }
+
+  /* ------------------- CLOCK ------------------- */
+  .mini-clock {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    text-align: right;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+  }
+
+  #clock {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: #eafff8;
+    text-shadow: 0 0  6px rgba(0, 255, 180, 0.6);
+  }
+
+  #date {
+    font-size: 12px;
+    margin-top: 4px;
+    color: rgba(0, 255, 180, 0.7);
+    letter-spacing: 1px;
+  }
+
   /* ------------------- GLOBAL SECTIONS ------------------- */
   section {
     padding: 80px 20px;
@@ -198,6 +226,11 @@
 
 <!-- ------------------- HERO ------------------- -->
 <header>
+    <div class="mini-clock">
+        <div id="clock"></div>
+        <div id="date"></div>
+    </div>
+
   <div class="hero">
     <img src="profile.jpg" alt="profile" />
     <h1>Muksith</h1>
@@ -364,6 +397,28 @@
     duration: 1,
     ease: "power3.out",
   });
+
+  // ------------------- CLOCK -------------------
+
+     function updateClock() {
+        const now = new Date();
+
+        const h = String(now.getHours()).padStart(2, '0');
+        const m = String(now.getMinutes()).padStart(2, '0');
+        const s = String(now.getSeconds()).padStart(2, '0');
+
+        document.getElementById("clock").textContent = `${h}:${m}:${s}`;
+
+        document.getElementById("date").textContent =
+            now.toLocaleDateString('en-us', {
+                weekday: 'short',
+                month: 'short',
+                day: 'numeric'
+            });
+     }
+
+    setInterval(updateClock, 1000);
+    updateClock();
   </script>
 </body>
 </html>
