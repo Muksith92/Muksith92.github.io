@@ -28,7 +28,8 @@ body {
     border-radius: 18px;
 }
 
-.card:hover .card-inner {
+.card:hover .card-inner,
+.card.flipped .card-inner {
     transform: rotateY(180deg);
 }
 
@@ -106,13 +107,12 @@ body {
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(0,0,0,0.25);
 }
-
 </style>
 <title>Portfolio Card</title>
 </head>
 <body>
 
-<div class="card">
+<div class="card" id="flipCard">
   <div class="card-inner">
 
     <div class="card-front">
@@ -130,6 +130,15 @@ body {
 
   </div>
 </div>
+
+<script>
+const card = document.getElementById('flipCard');
+
+// Toggle flip on mobile
+card.addEventListener('click', () => {
+  card.classList.toggle('flipped');
+});
+</script>
 
 </body>
 </html>
