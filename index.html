@@ -188,12 +188,27 @@ h2 {
   color: inherit;
 }
 
+/* ---------------- CONTACTS ---------------- */
+.contact-info p {
+  color: var(--muted);
+  font-size: 17px;
+  margin: 6px 0;
+}
+
+.contact-info a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+
+
 /* ---------------- FOOTER ---------------- */
 footer {
   text-align: center;
   padding: 18px;
   color: var(--muted);
   border-top: 1px solid #222;
+  margin-top: 40px;
 }
 
 /* ---------------- RESPONSIVE ---------------- */
@@ -222,8 +237,8 @@ footer {
 <section id="about">
   <h2>About Me</h2>
   <p class="about-text">
-    I build clean, modern websites using HTML, CSS, and JavaScript.
-    I focus on fast-loading, responsive, minimal designs.
+    I build clean, modern websites using HTML, CSS, and basic JavaScript.  
+    I focus on fast-loading, responsive, minimal designs that look professional on all screens.
   </p>
 </section>
 
@@ -233,22 +248,22 @@ footer {
 
     <div class="work-card"><div class="work-card-inner">
       <h3>Business Websites</h3>
-      <p>I create polished one-page and multi-page business sites.</p>
+      <p>I create polished one-page and multi-page business sites that give clients an instant online presence.</p>
     </div></div>
 
     <div class="work-card"><div class="work-card-inner">
       <h3>Product Landing Pages</h3>
-      <p>High-converting modern landing pages.</p>
+      <p>Modern landing pages designed for showcasing products and converting visitors into buyers.</p>
     </div></div>
 
     <div class="work-card"><div class="work-card-inner">
       <h3>Portfolio Websites</h3>
-      <p>Clean personal portfolios.</p>
+      <p>Clean personal portfolios for creators, freelancers, and professionals.</p>
     </div></div>
 
     <div class="work-card"><div class="work-card-inner">
       <h3>UI Styling & CSS</h3>
-      <p>Modern UI upgrades and animations.</p>
+      <p>Smooth, modern UI upgrades with animations, layouts and designs.</p>
     </div></div>
 
   </div>
@@ -260,27 +275,27 @@ footer {
 
     <div class="work-card"><div class="work-card-inner">
       <h3>Business Website Script</h3>
-      <p>Ready-to-use modern business website.</p>
+      <p>Ready-to-use modern business website. Clean design, and easy to customize for clients.</p>
     </div></div>
 
     <div class="work-card"><div class="work-card-inner">
       <h3>Product Landing Page Script</h3>
-      <p>High-converting landing page template.</p>
+      <p>High-converting landing page template. Perfect for showcasing products and boosting sales.</p>
     </div></div>
 
     <div class="work-card"><div class="work-card-inner">
       <h3>Portfolio Website Script</h3>
-      <p>Personal portfolio templates.</p>
+      <p>Personal portfolio templates for creators, freelancers, or professionals. Modern, minimal, and responsive.</p>
     </div></div>
 
     <div class="work-card"><div class="work-card-inner">
       <h3>UI Styling & CSS Pack</h3>
-      <p>Modern UI upgrades using CSS & JS.</p>
+      <p>Enhance existing websites with modern UI upgrades, animations, and responsive styling using CSS & JS.</p>
     </div></div>
 
     <div class="work-card"><div class="work-card-inner">
       <h3>Custom Client Scripts</h3>
-      <p>Tailored scripts or small web apps.</p>
+      <p>Create tailored scripts or small web apps based on client needs. Fast, functional, and ready to deploy.</p>
     </div></div>
 
   </div>
@@ -291,41 +306,50 @@ footer {
   <div class="grid">
 
     <div class="project">
-      <div class="project-inner">
-        <img src="https://images.unsplash.com/photo-1522199710521-72d69614c702">
-        <div class="project-content">
-          <h3>Business Website</h3>
-          <p>One-page business site.</p>
+      <a href="businesspage.html">
+        <div class="project-inner">
+          <img src="https://images.unsplash.com/photo-1522199710521-72d69614c702">
+          <div class="project-content">
+            <h3>Business Website</h3>
+            <p>One-page business site.</p>
+          </div>
         </div>
-      </div>
+      </a>
     </div>
 
     <div class="project">
-      <div class="project-inner">
-        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff">
-        <div class="project-content">
-          <h3>Product Landing Page</h3>
-          <p>Product showcase page.</p>
+      <a href="productpage.html">
+        <div class="project-inner">
+          <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff">
+          <div class="project-content">
+            <h3>Product Landing Page</h3>
+            <p>Simple landing page for products.</p>
+          </div>
         </div>
-      </div>
+      </a>
     </div>
 
     <div class="project">
-      <div class="project-inner">
-        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085">
-        <div class="project-content">
-          <h3>Portfolio Website</h3>
-          <p>This portfolio.</p>
+      <a href="portfoliocard.html">
+        <div class="project-inner">
+          <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085">
+          <div class="project-content">
+            <h3>Portfolio Card</h3>
+            <p>3D flip portfolio card.</p>
+          </div>
         </div>
-      </div>
+      </a>
     </div>
-
+    
   </div>
 </section>
 
 <section id="contact">
-  <h2>Contact</h2>
-  <p>Email: <a href="mailto:abdulmuksith92@gmail.com">abdulmuksith92@gmail.com</a></p>
+  <h2>Contacts</h2>
+  <div class="contact-info">
+    <p>Email: <a href="mailto:abdulmuksith92@gmail.com">abdulmuksith92@gmail.com</a></p>
+    <p>WhatsApp: <a href="https://wa.me/94786360010">Chat Now</a></p>
+  </div>
 </section>
 
 <footer>© 2025 Muksith — All rights reserved</footer>
