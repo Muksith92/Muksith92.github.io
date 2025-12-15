@@ -1,1 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #f0f0f0;
+    font-family: system-ui, sans-serif;
+}
 
+.card {
+    width: 360px;
+    height: 530px;
+    perspective: 1200px;
+}
+
+.card-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.8s ease;
+    border-radius: 18px;
+}
+
+.card:hover .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+}
+
+/* FRONT */
+.card-front {
+    background: url("https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=800&q=80") center/cover no-repeat;
+    display: flex;
+    align-items: flex-end;
+}
+
+.card-front::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,.75), transparent);
+}
+
+.card-front-content {
+    position: relative;
+    padding: 24px;
+    color: #fff;
+}
+
+.card-title {
+    margin: 0;
+    font-size: 26px;
+}
+
+.card-subtitle {
+    margin-top: 6px;
+    font-size: 14px;
+    opacity: 0.85;
+}
+
+/* BACK */
+.card-back {
+    background: linear-gradient(135deg, #4f7cff, #2c4cff);
+    color: #fff;
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    text-align: center;
+}
+
+.card-back p {
+    opacity: 0.9;
+    line-height: 1.5;
+}
+
+.card-back a {
+    margin-top: 18px;
+    padding: 12px 26px;
+    border-radius: 30px;
+    background: #fff;
+    color: #2c4cff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-back a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+</style>
+<title>Portfolio Card</title>
+</head>
+<body>
+
+<div class="card">
+  <div class="card-inner">
+
+    <div class="card-front">
+      <div class="card-front-content">
+        <h2 class="card-title">Your Name</h2>
+        <p class="card-subtitle">100M followers on Instagram</p>
+      </div>
+    </div>
+
+    <div class="card-back">
+      <h2>About Yourself</h2>
+      <p>Content creator, influencer, and entrepreneur.</p>
+      <a href="https://instagram.com/">Follow Me</a>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
