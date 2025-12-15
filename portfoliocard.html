@@ -17,6 +17,7 @@ body {
     width: 360px;
     height: 530px;
     perspective: 1200px;
+    cursor: pointer;
 }
 
 .card-inner {
@@ -28,7 +29,7 @@ body {
     border-radius: 18px;
 }
 
-/* Desktop hover OR flipped class */
+/* Hover for desktop or flipped class for touch */
 .card:hover .card-inner,
 .card.flipped .card-inner {
     transform: rotateY(180deg);
@@ -113,7 +114,7 @@ body {
 </head>
 <body>
 
-<div class="card" id="flipCard">
+<div class="card" id="flipCard" tabindex="0">
   <div class="card-inner">
 
     <div class="card-front">
@@ -135,13 +136,13 @@ body {
 <script>
 const card = document.getElementById('flipCard');
 
-// Detect touch device
-const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-
-if(isTouch){
-  card.addEventListener('click', () => {
+function toggleFlip(e) {
     card.classList.toggle('flipped');
-  });
+}
+
+// Detect touch device
+if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+    card.addEventListener('touchstart', toggleFlip);
 }
 </script>
 
