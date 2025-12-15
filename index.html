@@ -5,422 +5,224 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Muksith</title>
 
-<!-- GSAP -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
 <style>
-    :root {
-    --bg: #0e0e0e;
-    --card: #151515;
-    --text: #f3f3f3;
-    --muted: #bdbdbd;
-    --accent: #4f7cff;
-    --glow: rgba(79, 124, 255, 0.35);
-    --radius: 16px;
-  }
+:root {
+  --bg:#0e0e0e;
+  --card:#151515;
+  --text:#f3f3f3;
+  --muted:#bdbdbd;
+  --accent:#4f7cff;
+  --glow:rgba(79,124,255,.35);
+  --radius:16px;
+}
 
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    overflow-x: hidden;
-  }
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter,system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  overflow-x:hidden;
+}
 
-  /* ------------------- HERO ------------------- */
-  header {
-    height: 85vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 40px 20px;
-    text-align: center;
-    background: url("https://images.unsplash.com/photo-1535223289827-42f1e9919769?auto=format&fit=crop&w=1400&q=60") center/cover no-repeat;
-    position: relative;
-  }
+/* HERO */
+header{
+  height:85vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  background:url("https://images.unsplash.com/photo-1535223289827-42f1e9919769?auto=format&fit=crop&w=1400&q=60") center/cover no-repeat;
+  position:relative;
+}
+header::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  backdrop-filter:brightness(.35);
+}
+.hero{position:relative;z-index:1}
+.hero img{
+  width:140px;height:140px;border-radius:50%;
+  border:3px solid var(--accent);
+  box-shadow:0 0 25px var(--glow);
+}
+h1{font-size:42px;margin:14px 0}
+.subtitle{color:var(--muted)}
 
-  header::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    backdrop-filter: brightness(0.35) blur(1px);
-  }
+/* CLOCK */
+.mini-clock{
+  position:absolute;top:20px;right:30px;
+  text-align:right;z-index:2
+}
+#clock{font-size:22px;color:#eafff8}
+#date{font-size:12px;color:#9fffdc}
 
-  .hero {
-    max-width: 800px;
-    position: relative;
-    z-index: 10;
-  }
+/* SECTIONS */
+section{padding:80px 20px;max-width:1100px;margin:auto}
+h2{
+  font-size:32px;
+  border-left:5px solid var(--accent);
+  padding-left:14px;
+}
 
-  .hero img {
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 20px;
-    border: 3px solid var(--accent);
-    box-shadow: 0 0 25px var(--glow);
-  }
+/* GRIDS */
+.work-grid,.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:28px;
+}
 
-  h1 {
-    font-size: 42px;
-    margin: 10px 0;
-    font-weight: 700;
-  }
+/* ===== CARD FIX START ===== */
+.work-card,
+.project{
+  position:relative;
+  contain:layout paint;
+}
 
-  .subtitle {
-    color: var(--muted);
-  }
+.work-card-inner,
+.project-inner{
+  height:100%;
+  background:var(--card);
+  border-radius:var(--radius);
+  padding:28px;
+  box-shadow:0 0 25px rgba(0,0,0,.45),0 0 22px var(--glow);
+  transition:transform .3s ease, box-shadow .3s ease;
+  will-change:transform;
+}
 
-  header {
-    position: relative;
-  }
+/* hover only inner */
+.work-card:hover .work-card-inner,
+.project:hover .project-inner{
+  transform:translateY(-6px);
+  box-shadow:0 15px 40px rgba(0,0,0,.55),0 0 28px var(--glow);
+}
+/* ===== CARD FIX END ===== */
 
-  /* ------------------- CLOCK ------------------- */
-  .mini-clock {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    text-align: right;
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-  }
+/* PROJECT IMAGE */
+.project-inner img{
+  width:100%;
+  height:180px;
+  object-fit:cover;
+  border-radius:12px;
+  margin-bottom:14px;
+  transition:transform .3s ease, filter .3s ease;
+  filter:brightness(.85);
+}
+.project:hover img{
+  transform:scale(1.05);
+  filter:brightness(1);
+}
 
-  #clock {
-    font-size: 22px;
-    font-weight: 600;
-    letter-spacing: 2px;
-    color: #eafff8;
-    text-shadow: 0 0  6px rgba(0, 255, 180, 0.6);
-  }
+/* CONTACT */
+.contact-info p{color:var(--muted)}
+.contact-info a{color:var(--accent)}
 
-  #date {
-    font-size: 12px;
-    margin-top: 4px;
-    color: rgba(0, 255, 180, 0.7);
-    letter-spacing: 1px;
-  }
-
-  /* ------------------- GLOBAL SECTIONS ------------------- */
-  section {
-    padding: 80px 20px;
-    max-width: 1100px;
-    margin: auto;
-  }
-
-  h2 {
-    font-size: 32px;
-    margin-bottom: 20px;
-    border-left: 5px solid var(--accent);
-    padding-left: 14px;
-  }
-
-  /* ------------------- ABOUT ------------------- */
-  .about-text {
-    color: var(--muted);
-    line-height: 1.7;
-    font-size: 17px;
-    max-width: 780px;
-  }
-
-  /* ------------------- WORK SECTION ------------------- */
-  .work-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 28px;
-    margin-top: 30px;
-  }
-
-  .work-card {
-    background: var(--card);
-    border-radius: var(--radius);
-    padding: 28px;
-    backdrop-filter: blur(6px);
-    border: 1px solid #1f1f1f;
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.45), 0 0 22px var(--glow);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .work-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.55), 0 0 25px var(--glow);
-  }
-
-  .work-card h3 {
-    margin: 5px 0;
-  }
-
-  /* ------------------- PROJECTS ------------------- */
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-  }
-
-  .project {
-    position: relative;
-    overflow: hidden;
-    border-radius: var(--radius);
-    background: var(--card);
-    box-shadow: 0 0 15px rgba(0,0,0,0.4), 0 0 20px var(--glow);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .project img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    filter: brightness(0.85);
-    transition: 0.3s ease;
-  }
-
-  .project:hover img {
-    transform: scale(1.05);
-    filter: brightness(1);
-  }
-
-  .project-content {
-    padding: 18px;
-  }
-
-  .project a {
-      display: block;
-      text-decoration: none;
-      color: inherit;
-  }
-    .project:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 15px 40px rgba(0,0,0,0.5), 0 0 25px var(--glow);
-  }
-
-  /* ------------------- CONTACT ------------------- */
-  .contact-info p {
-    color: var(--muted);
-    font-size: 17px;
-    margin: 6px 0;
-  }
-
-  .contact-info a {
-    color: var(--accent);
-    text-decoration: none;
-  }
-
-  footer {
-    text-align: center;
-    padding: 18px;
-    color: var(--muted);
-    border-top: 1px solid #222;
-    margin-top: 40px;
-  }
-
-  @media(max-width:600px){
-    h1 { font-size: 32px; }
-    header { height: 70vh; }
-  }
-  </style>
+footer{
+  text-align:center;
+  padding:18px;
+  color:var(--muted);
+  border-top:1px solid #222;
+}
+</style>
 </head>
 
 <body>
 
-<!-- ------------------- HERO ------------------- -->
 <header>
-    <div class="mini-clock">
-        <div id="clock"></div>
-        <div id="date"></div>
-    </div>
+  <div class="mini-clock">
+    <div id="clock"></div>
+    <div id="date"></div>
+  </div>
 
   <div class="hero">
-    <img src="profile.jpg" alt="profile" />
+    <img src="profile.jpg" alt="">
     <h1>Muksith</h1>
     <p class="subtitle">Web Developer • UI Builder • Beginner Programmer</p>
   </div>
 </header>
 
-<!-- ------------------- ABOUT ------------------- -->
-<section id="about">
-  <h2>About Me</h2>
-  <p class="about-text">
-    I build clean, modern websites using HTML, CSS, and JavaScript.  
-    I focus on fast-loading, responsive, minimal designs that look professional on all screens.
-  </p>
-</section>
+<section>
+<h2>What I Do</h2>
+<div class="work-grid">
 
-<!-- ------------------- WORK SECTION ------------------- -->
-<section id="work">
-  <h2>What I Do</h2>
-
-  <div class="work-grid">
-    <div class="work-card">
+  <div class="work-card">
+    <div class="work-card-inner">
       <h3>Business Websites</h3>
-      <p>I create polished one-page and multi-page business sites that give clients an instant online presence.</p>
-    </div>
-
-    <div class="work-card">
-      <h3>Product Landing Pages</h3>
-      <p>Modern landing pages designed for showcasing products and converting visitors into buyers.</p>
-    </div>
-
-    <div class="work-card">
-      <h3>Portfolio Websites</h3>
-      <p>Clean personal portfolios for creators, freelancers, and professionals.</p>
-    </div>
-
-    <div class="work-card">
-      <h3>UI Styling & CSS</h3>
-      <p>Smooth, modern UI upgrades with animations, layouts, and responsive designs.</p>
+      <p>Clean, professional websites for businesses.</p>
     </div>
   </div>
-</section>
 
-<!-- ------------------- PRODUCTS I OFFER ------------------- -->
-<section id="products">
-  <h2>Products I Offer</h2>
-
-  <div class="work-grid">
-    <div class="work-card">
-      <h3>Business Website Script</h3>
-      <p>Ready-to-use modern business website. Fully responsive, clean design, and easy to customize for clients.</p>
-    </div>
-
-    <div class="work-card">
-      <h3>Product Landing Page Script</h3>
-      <p>High-converting landing page template. Perfect for showcasing products and boosting sales.</p>
-    </div>
-
-    <div class="work-card">
-      <h3>Portfolio Website Script</h3>
-      <p>Personal portfolio templates for creators, freelancers, or professionals. Modern, minimal, and responsive.</p>
-    </div>
-
-    <div class="work-card">
-      <h3>UI Styling & CSS Pack</h3>
-      <p>Enhance existing websites with modern UI upgrades, animations, and responsive styling using CSS & JS.</p>
-    </div>
-
-    <div class="work-card">
-      <h3>Custom Client Scripts</h3>
-      <p>Create tailored scripts or small web apps based on client needs. Fast, functional, and ready to deploy.</p>
+  <div class="work-card">
+    <div class="work-card-inner">
+      <h3>Landing Pages</h3>
+      <p>High-converting product landing pages.</p>
     </div>
   </div>
-</section>
 
-<!-- ------------------- PROJECTS ------------------- -->
-<section id="projects">
-  <h2>Projects</h2>
-
-  <div class="grid">
-
-    <div class="project">
-     <a href="businesspage.html">
-      <img src="https://images.unsplash.com/photo-1522199710521-72d69614c702" alt="Business Website" />
-      <div class="project-content">
-        <h3>Business Website</h3>
-        <p>One-page business site built for small shops.</p>
-      </div>
-     </a>
+  <div class="work-card">
+    <div class="work-card-inner">
+      <h3>Portfolio Sites</h3>
+      <p>Personal portfolios for creators.</p>
     </div>
-
-    <div class="project">
-     <a href="productpage.html">
-      <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1200&q=80" alt="Product Landing Page" />
-      <div class="project-content">
-        <h3>Product Landing Page</h3>
-        <p>Simple landing page for products.</p>
-      </div>
-     </a>
-    </div>
-
-    <div class="project">
-     <a href="portfoliocard.html">
-      <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085" alt="Portfolio Website" />
-      <div class="project-content">
-        <h3>Portfolio Website</h3>
-        <p>This personal portfolio you're viewing now.</p>
-      </div>
-     </a>
-    </div>
-
   </div>
+
+</div>
 </section>
 
-<!-- ------------------- CONTACT ------------------- -->
+<section>
+<h2>Projects</h2>
+<div class="grid">
+
+  <div class="project">
+    <div class="project-inner">
+      <img src="https://images.unsplash.com/photo-1522199710521-72d69614c702">
+      <h3>Business Website</h3>
+      <p>One-page business site.</p>
+    </div>
+  </div>
+
+  <div class="project">
+    <div class="project-inner">
+      <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff">
+      <h3>Product Landing</h3>
+      <p>Product showcase page.</p>
+    </div>
+  </div>
+
+</div>
+</section>
+
 <section id="contact">
-  <h2>Contact</h2>
-  <div class="contact-info">
-    <p>Email: <a href="mailto:abdulmuksith92@gmail.com">abdulmuksith92@gmail.com</a></p>
-    <p>WhatsApp: <a href="https://wa.me/94786360010">Chat Now</a></p>
-  </div>
+<h2>Contact</h2>
+<div class="contact-info">
+<p>Email: <a href="mailto:abdulmuksith92@gmail.com">abdulmuksith92@gmail.com</a></p>
+<p>WhatsApp: <a href="https://wa.me/94786360010">Chat Now</a></p>
+</div>
 </section>
 
-<footer>
-  © 2025 Muksith — All rights reserved
-</footer>
+<footer>© 2025 Muksith — All rights reserved</footer>
 
 <script>
-  <!-- ------------------- ANIMATIONS ------------------- -->
-  gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger);
 
-  // Hero fade
-  gsap.from(".hero img, .hero h1, .hero .subtitle", {
-    y: 30,
-    opacity: 0,
-    stagger: 0.2,
-    duration: 1,
-    ease: "power3.out",
-  });
+gsap.from(".hero img, .hero h1, .hero .subtitle",{
+  y:30,opacity:0,stagger:.2,duration:1
+});
 
-  // About
-  gsap.from(".about-text", {
-    scrollTrigger: "#about",
-    y: 40,
-    opacity: 0,
-    duration: 0.8,
-    ease: "power3.out",
-  });
+gsap.from(".work-card",{scrollTrigger:".work-grid",y:40,opacity:0,stagger:.15});
+gsap.from(".project",{scrollTrigger:".grid",y:50,opacity:0,stagger:.2});
 
-  // Work cards
-  gsap.from(".work-card", {
-    scrollTrigger: "#work",
-    y: 40,
-    opacity: 0,
-    stagger: 0.15,
-    duration: 0.9,
-    ease: "power3.out",
-  });
+function updateClock(){
+  const d=new Date();
+  clock.textContent=d.toLocaleTimeString();
+  date.textContent=d.toDateString();
+}
+setInterval(updateClock,1000);updateClock();
+</script>
 
-  // Projects
-  gsap.from(".project", {
-    scrollTrigger: "#projects",
-    y: 60,
-    opacity: 0,
-    stagger: 0.2,
-    duration: 1,
-    ease: "power3.out",
-  });
-
-  // ------------------- CLOCK -------------------
-
-     function updateClock() {
-        const now = new Date();
-
-        const h = String(now.getHours()).padStart(2, '0');
-        const m = String(now.getMinutes()).padStart(2, '0');
-        const s = String(now.getSeconds()).padStart(2, '0');
-
-        document.getElementById("clock").textContent = `${h}:${m}:${s}`;
-
-        document.getElementById("date").textContent =
-            now.toLocaleDateString('en-us', {
-                weekday: 'short',
-                month: 'short',
-                day: 'numeric'
-            });
-     }
-
-    setInterval(updateClock, 1000);
-    updateClock();
-  </script>
 </body>
 </html>
